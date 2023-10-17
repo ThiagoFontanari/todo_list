@@ -1,0 +1,27 @@
+{% extends 'core/main.html' %}
+{% block content %}
+{% load static %}
+
+<div style="background-image: url({% static 'gifs/login.gif' %});" class="header-bar">
+    <h1>Tarefas e Lembretes - Cadastre-se</h1>
+</div>
+
+<div class="card-body">
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>{{ form.username.label }}</label>
+        {{ form.username }}
+
+        <label>{{ form.password1.label }}</label>
+        {{ form.password1 }}
+
+        <label>{{ form.password2.label }}</label>
+        {{ form.password2 }}
+
+        <input style="margin-top: 10px;" class="botao" type="submit" value="Login">
+    </form>
+    <p>Já é cadastrado? <a href="{% url 'login' %}">Faça login</a> </p>
+</div>
+
+{% endblock content %}

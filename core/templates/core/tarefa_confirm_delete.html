@@ -1,0 +1,17 @@
+{% extends 'core/main.html' %}
+{% block content %}
+{% load static %}
+
+<div style="background-image: url({% static 'gifs/rain.gif' %});" class="header-bar">
+    <a href="{% url 'tarefas' %}">&#8592; Voltar</a>
+</div>
+
+<div class="card-body">
+    <form method="POST">
+        {% csrf_token %}
+        <p>Tem certeza que deseja excluir tarefa? {{ tarefa }}</p>
+        <input class="botao" type="submit" value="Delete">
+    </form>
+</div>
+
+{% endblock content %}

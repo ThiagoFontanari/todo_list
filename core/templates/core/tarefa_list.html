@@ -1,0 +1,45 @@
+{% extends 'core/main.html' %}
+{% block content %}
+
+<div style="background-image: url('static/gifs/check.gif'); background-size: cover;" class="header-bar">
+    <div>
+        <h1>Olá {{ request.user|title }}</h1>
+        <h3 style="margin:0;">Você possui <i>{{ contagem }}</i> tarefa{{ contagem|pluralize:"s" }} pendente{{ contagem|pluralize:"s"}}.</h3>
+    </div>
+    <a href="{% url 'logout' %}">Sair</a>
+</div>
+
+<div id="barra-pesquisa-criar">
+    <form method="GET" style="margin-top: 20px; display: flex;">
+        <input type="text" name="pesquisa" value="{{ pesquisa }}">
+        <input class="botao" type="submit" value="Procurar">
+    </form>
+    <a id="icone-criar" href="{% url 'criar-tarefa' %}">&#x2b;</a>  
+</div>
+
+<div class="listagem-de-itens">
+
+    {% for tarefa in tarefas %}
+        <div class="wrapper-tarefa">
+            {% if tarefa.concluida %}
+                <div class="titulo-tarefa">
+                    <div class="icone-tarefa-concluida"></div>
+                    <i><s><a href="{% url 'modificar-tarefa' tarefa.id %}">{{ tarefa }}</a></s></i>
+                </div>
+                <a class="icone-deletar" href="{% url 'excluir-tarefa' tarefa.id %}">&#215;</a>
+
+            {% else %}
+                <div class="titulo-tarefa">
+                    <div class="icone-tarefa-nao-concluida"></div>
+                    <i><a href="{% url 'modificar-tarefa' tarefa.id %}">{{ tarefa }}</a></i>
+                </div>
+                <a class="icone-deletar" href="{% url 'excluir-tarefa' tarefa.id %}">&#215;</a>
+
+            {% endif %}
+        </div>
+    {% empty %}
+        <h3>Sem Tarefas!</h3>
+    {% endfor %}
+</div>  
+{% endblock content %}
+     
